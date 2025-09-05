@@ -29,6 +29,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,8 +77,8 @@ fun SigninScreen(
                 painter = painterResource(R.drawable.bebidajalogo),
                 contentDescription = "Logo BebidaJá",
                 modifier = Modifier
-                    .height(80.dp)
-                    .padding(top = 8.dp)
+                    .fillMaxWidth(0.42f)
+                    .sizeIn(220.dp)
             )
 
             Spacer(Modifier.height(32.dp))
@@ -132,15 +133,14 @@ fun SigninScreen(
 
             // Entrar (cheio, cantos arredondados — estilo Welcome)
             Button(
-                onClick = { attemptLogin() },
-                enabled = enabled,
+                onClick =  { attemptLogin() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp),
-                shape = RoundedCornerShape(26.dp),
-                colors = buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
+                shape = RoundedCornerShape(26.dp), // cantos bem arredondados
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Black,
+                    contentColor = Color.White
                 ),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
             ) { Text("Entrar", style = MaterialTheme.typography.titleSmall) }
@@ -152,7 +152,12 @@ fun SigninScreen(
                 onClick = onBack,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp)
+                    .height(52.dp),
+                shape = RoundedCornerShape(26.dp),
+                border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f)),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground
+                )
             ) { Text("Voltar") }
 
             Spacer(Modifier.height(24.dp))
@@ -164,34 +169,37 @@ fun SigninScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SocialSquare(
-                    onClick = onGoogle,
-                    content = {
-                        Image(
-                            painter = painterResource(R.drawable.logo_google),
-                            contentDescription = "Entrar com Google",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    label = "Google"
-                )
-                SocialSquare(
                     onClick = onFacebook,
-                    content = {
-                        Image(
-                            painter = painterResource(R.drawable.logo_facebook),
-                            contentDescription = "Entrar com Facebook",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    },
-                    label = "Facebook"
-                )
+                    label = "Facebook",
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.logo_facebook),
+                        contentDescription = "Entrar com Facebook",
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+
+                SocialSquare(
+                    onClick = onGoogle,
+                    label = "Google",
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.logo_google),
+                        contentDescription = "Entrar com Google",
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
             }
 
             Spacer(Modifier.height(24.dp))
 
             // "Você não tem uma conta? Criar Conta"
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Você não tem uma conta?  ")
+                Text("Você não tem uma conta?  ",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground)
                 Text(
                     text = "Criar Conta",
                     color = MaterialTheme.colorScheme.primary,
@@ -224,7 +232,7 @@ private fun SocialSquare(
             color = MaterialTheme.colorScheme.surface,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(48.dp)
         ) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 content()
