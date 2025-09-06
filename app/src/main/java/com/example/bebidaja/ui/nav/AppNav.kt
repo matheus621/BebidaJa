@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.bebidaja.R
 import com.example.bebidaja.ui.auth.login.SigninScreen
+import com.example.bebidaja.ui.home.HomeScreen
 import com.example.bebidaja.ui.splash.SplashScreen
 import com.example.bebidaja.ui.welcome.WelcomeAuthScreen
 
@@ -37,7 +38,7 @@ fun AppNav() {
         composable("signin") {
             SigninScreen(
                 onSuccess = {
-                    nav.navigate("catalog") { popUpTo("home") { inclusive = true } }
+                    nav.navigate("homescreen") { popUpTo("home") { inclusive = true } }
                 },
                 onBack = { nav.popBackStack() },
                 onCreateAccount = { nav.navigate("signup") },
@@ -47,6 +48,9 @@ fun AppNav() {
         }
         composable("signup") { /* TODO: tela de cadastro */ }
         composable("catalog") { /* TODO: tela principal após login */ }
+        composable("homescreen") {
+            HomeScreen(userLocation = "Rua Exemplo, 123")
+        }
     }
 }
 
